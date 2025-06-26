@@ -6,25 +6,8 @@ import { products as initialProducts } from '../data/products';
 import type { Product } from '../data/products';
 
 const ProductsPage: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>(initialProducts);
+  const [products] = useState<Product[]>(initialProducts);
   const [searchTerm, setSearchTerm] = useState('');
-
-  const handleUpdateStock = (productId: string, stockId: string, change: number) => {
-    setProducts(prevProducts =>
-      prevProducts.map(product =>
-        product.id === productId
-          ? {
-              ...product,
-              stocks: product.stocks.map(stock =>
-                stock.id === stockId
-                  ? { ...stock, quantity: Math.max(0, stock.quantity + change) }
-                  : stock
-              )
-            }
-          : product
-      )
-    );
-  };
 
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -56,7 +39,6 @@ const ProductsPage: React.FC = () => {
               <ProductCard
                 key={product.id}
                 product={product}
-                onUpdateStock={handleUpdateStock}
               />
             ))}
           </div>

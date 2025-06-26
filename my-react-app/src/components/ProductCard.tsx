@@ -1,15 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Plus, Minus } from 'lucide-react';
 import type { Product } from '../data/products'; // Adjust the import path as necessary
  // Adjust the import path as necessary
 
 interface ProductCardProps {
   product: Product;
-  onUpdateStock: (productId: string, stockId: string, change: number) => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, onUpdateStock }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const totalStock = product.stocks.reduce((sum, stock) => sum + stock.quantity, 0);
 
   return (
@@ -31,22 +29,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onUpdateStock }) => 
             {product.stocks.map((stock) => (
               <div key={stock.id} className="stock-item">
                 <span className="stock-name">{stock.name}</span>
-                <div className="stock-quantity">
-                  <button
-                    className="quantity-btn"
-                    onClick={() => onUpdateStock(product.id, stock.id, -1)}
-                    disabled={stock.quantity <= 0}
-                  >
-                    <Minus size={16} />
-                  </button>
-                  <span className="quantity-number">{stock.quantity}</span>
-                  <button
-                    className="quantity-btn"
-                    onClick={() => onUpdateStock(product.id, stock.id, 1)}
-                  >
-                    <Plus size={16} />
-                  </button>
-                </div>
+                <span className="quantity-number">{stock.quantity}</span>
               </div>
             ))}
           </div>

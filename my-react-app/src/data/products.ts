@@ -31,7 +31,7 @@ export const products: Product[] = [
     image: 'https://micromini.in/wp-content/uploads/2024/12/nex-650x650.jpg',
     stocks: [
       { id: 'tambaram', name: 'Tambaram Stock', quantity: 8 },
-      { id: 'mount-road', name: 'Mount Road Stock', quantity: 15 },
+      { id: 'mount-road', name: 'Mount Road Stock', quantity: 20 },
       { id: 'office', name: 'Office Stock', quantity: 5 }
     ]
   },

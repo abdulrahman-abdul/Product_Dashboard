@@ -1,33 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Plus, Minus } from 'lucide-react';
-import { products as initialProducts } from '../data/products';
-import type { Product } from '../data/products';
+import { ArrowLeft } from 'lucide-react';
+import { products } from '../data/products';
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [products, setProducts] = useState<Product[]>(initialProducts);
   
   const product = products.find(p => p.id === id);
-
-  const handleUpdateStock = (stockId: string, change: number) => {
-    if (!product) return;
-    
-    setProducts(prevProducts =>
-      prevProducts.map(p =>
-        p.id === product.id
-          ? {
-              ...p,
-              stocks: p.stocks.map(stock =>
-                stock.id === stockId
-                  ? { ...stock, quantity: Math.max(0, stock.quantity + change) }
-                  : stock
-              )
-            }
-          : p
-      )
-    );
-  };
 
   if (!product) {
     return (
@@ -90,26 +69,9 @@ const ProductDetail: React.FC = () => {
                           {stock.quantity} items available
                         </div>
                       </div>
-                      <div className="stock-quantity">
-                        <button
-                          className="quantity-btn"
-                          onClick={() => handleUpdateStock(stock.id, -1)}
-                          disabled={stock.quantity <= 0}
-                          style={{ width: '40px', height: '40px' }}
-                        >
-                          <Minus size={20} />
-                        </button>
-                        <span className="quantity-number" style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
-                          {stock.quantity}
-                        </span>
-                        <button
-                          className="quantity-btn"
-                          onClick={() => handleUpdateStock(stock.id, 1)}
-                          style={{ width: '40px', height: '40px' }}
-                        >
-                          <Plus size={20} />
-                        </button>
-                      </div>
+                      <span className="quantity-number" style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
+                        {stock.quantity}
+                      </span>
                     </div>
                   ))}
                 </div>
